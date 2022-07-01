@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<body>
+	
+<a href="../../index.html">Regresar</a>
+	
+	
+<h1 align="center" style="color:red">Desarrollar una tabla HTML segun el valor de un menu desplegable,
+utilizando la funcion de JavaScript JSON.parse() para convertir texto en un objeto de JavaScript.</h1>
+
+<select id="myselect" onchange="change_myselect(this.value)">
+  <option value="">Escoger una opcion:</option>
+  <option value="Ciudades">Ciudades</option>
+  <option value="Canciones">Canciones</option>
+  <option value="suppliers">Suppliers</option>
+</select>
+
+<p id="demo"></p>
+<table border="3px">
+  
+  <thead>
+   <tr>
+<td>Nombre</td>
+<td>TITULO</td>
+   </tr> 
+
+
+  </thead>
+  <tbody id="res">
+    
+  </tbody>
+</table>
+<script>
+
+
+ function change_myselect(sel) {
+  console.log(sel);
+   const xhttp = new XMLHttpRequest();
+   xhttp.open("GET", "ejemplo.json", true);
+   xhttp.send();
+ xhttp.onreadystatechange=function(){
+
+if(this.readyState==4 && this.status==200){
+  console.log(this.responseText);
+let datos= JSON.parse(this.responseText)
+let res=document.querySelector('#res');
+res.innerHTML="";
+for (let item of datos) {
+
+if(sel=="Canciones"){
+res.innerHTML += `
+<tr>
+<td>${item.titulo}</td>
+<td>${item.artista}</td>
+</tr>`
+}
+if(sel=="Ciudades"){
+res.innerHTML += `
+<tr>
+<td>${item.name}</td>
+<td>${item.a}</td>
+</tr>`
+}
+}
+}
+
+ }
+  }
+
+</script>
+
+</body>
+</html>
